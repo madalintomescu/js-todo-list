@@ -1,0 +1,431 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: -webkit-linear-gradient(45deg, #e53935, #ef5350);
+  background-image: -o-linear-gradient(45deg, #e53935, #ef5350);
+  background-image: linear-gradient(45deg, #e53935, #ef5350);
+  background-attachment: fixed;
+  margin: 50px;
+  font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+  margin-top: 20vh;
+  color: #fff;
+  font-weight: 300;
+  text-align: center;
+}
+
+#todos-form {
+  -webkit-box-shadow: 0 4px 5px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 5px 4px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  margin: 10vh auto;
+  max-width: 17rem;
+  border-radius: 5px;
+}
+
+#todos-title {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  padding: 15px;
+  padding-bottom: 0;
+}
+
+#todos-ul {
+  padding-left: 0;
+  list-style-type: none;
+  max-height: 35vh;
+  overflow-y: auto;
+  margin-bottom: 0;
+}
+
+li {
+  overflow: hidden;
+  -webkit-transition: 0.2s background-color;
+  -o-transition: 0.2s background-color;
+  transition: 0.2s background-color;
+}
+
+li:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 15px;
+  position: relative;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+input[type="checkbox"] + span:before {
+  content: "";
+  border: 2px solid #dadada;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 7px;
+  margin-right: 10px;
+  vertical-align: middle;
+  -webkit-transition: 0.1s border-color;
+  -o-transition: 0.1s border-color;
+  transition: 0.1s border-color;
+}
+
+input[type="checkbox"]:checked + span:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  width: 10px;
+  left: 4px;
+  margin-top: -1px;
+  display: inline-block;
+  color: #fff;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+input[type="checkbox"]:checked:hover + .todo-text {
+  color: #333;
+}
+
+label:hover input[type="checkbox"] + span:before {
+  border-color: #f44336;
+}
+
+input[type="checkbox"]:checked + .todo-text {
+  text-decoration: line-through;
+  color: #aaa;
+  font-style: italic;
+  -webkit-transition: 0.2s color;
+  -o-transition: 0.2s color;
+  transition: 0.2s color;
+}
+
+input[type="checkbox"]:checked:hover + .todo-text {
+  color: #999;
+}
+
+input[type="checkbox"]:checked + span:before {
+  border-color: #f44336;
+  background-color: #f44336;
+}
+
+input[type="checkbox"]:focus + span:before {
+  -webkit-box-shadow: 0 0 3px 0 #f44336;
+  box-shadow: 0 0 3px 0 #f44336;
+}
+
+input[type="checkbox"]:focus + span:before {
+  -webkit-animation-name: checkTodo;
+  animation-name: checkTodo;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+}
+
+.todo-text {
+  position: relative;
+  font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #888;
+  -webkit-transition: 0.2s color;
+  -o-transition: 0.2s color;
+  transition: 0.2s color;
+  word-break: break-all;
+}
+
+label:hover .todo-text {
+  color: #444;
+}
+
+.remove-todo-btn {
+  width: 12px;
+  height: 12px;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: 50px;
+  -webkit-transition: 0.2s background-color;
+  -o-transition: 0.2s background-color;
+  transition: 0.2s background-color;
+}
+
+.remove-todo-btn:before,
+.remove-todo-btn:after {
+  content: "";
+  position: absolute;
+  margin: 0;
+  height: 11px;
+  width: 1px;
+  background-color: #ccc;
+  border-radius: 1px;
+}
+
+.remove-todo-btn:hover {
+  background-color: #f44336;
+  border-radius: 50%;
+}
+
+.remove-todo-btn:hover:before,
+.remove-todo-btn:hover:after {
+  background-color: #fff;
+}
+
+.remove-todo-btn:before {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.remove-todo-btn:after {
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.remove-todo {
+  -webkit-animation-name: removeTodo;
+  animation-name: removeTodo;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+}
+
+#add-todo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  position: relative;
+}
+
+#add-todo-input {
+  width: 100%;
+  padding: 15px;
+  padding-right: 40px;
+  border: 0;
+  border-top: 1px solid #d2d9e0;
+  outline-color: #56aaff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -webkit-transition: 0.2s all;
+  -o-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+::-webkit-input-placeholder {
+  font-family: "Open Sans", sans-serif;
+}
+:-ms-input-placeholder {
+  font-family: "Open Sans", sans-serif;
+}
+::-moz-placeholder {
+  font-family: "Open Sans", sans-serif;
+}
+:-moz-placeholder {
+  font-family: "Open Sans", sans-serif;
+}
+
+#add-todo-btn {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0 16px;
+  border: 0;
+  cursor: pointer;
+  -webkit-transition: 0.2s all;
+  -o-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+#add-todo-btn:active {
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.right-arrow {
+  position: relative;
+  height: 18px;
+  width: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+  -webkit-transition: 0.2s margin-right;
+  -o-transition: 0.2s margin-right;
+  transition: 0.2s margin-right;
+}
+
+.right-arrow:before,
+.right-arrow:after {
+  content: "";
+  position: absolute;
+  border-color: #d2d9e0;
+  -webkit-transition: 0.3s border-color;
+  -o-transition: 0.3s border-color;
+  transition: 0.3s border-color;
+}
+
+.right-arrow:before {
+  width: 14px;
+  left: 0;
+  top: 43%;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+}
+
+.right-arrow:after {
+  height: 12px;
+  width: 12px;
+  right: 0;
+  top: 15%;
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#add-todo-btn:hover .right-arrow:before,
+#add-todo-btn:hover .right-arrow:after {
+  border-color: #f44336;
+}
+
+#add-todo-btn:hover .right-arrow {
+  margin-right: -3px;
+}
+
+.new-todo {
+  -webkit-animation-name: newTodo;
+  animation-name: newTodo;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bbb;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+@-webkit-keyframes newTodo {
+  0% {
+    opacity: 0;
+    height: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 50px;
+  }
+}
+
+@keyframes newTodo {
+  0% {
+    opacity: 0;
+    height: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 50px;
+  }
+}
+
+@-webkit-keyframes removeTodo {
+  0% {
+    height: 50px;
+    opacity: 1;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes removeTodo {
+  0% {
+    height: 50px;
+    opacity: 1;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes checkTodo {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes checkTodo {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
